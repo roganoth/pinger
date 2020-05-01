@@ -31,7 +31,7 @@ router.post("/movies", function (req, res) {
 });
 
 router.put("/movies/:id", function (req, res) {
-  let condition = "id = " + req.params.id;
+  const condition = "id = " + req.params.id;
 
   movies.updateOne(
     {
@@ -52,7 +52,7 @@ router.put("/movies/:id", function (req, res) {
 });
 
 router.delete("/movies/:id", function (req, res) {
-  let condition = "id = " + req.params.id;
+  const condition = "id = " + req.params.id;
 
   movies.delete(condition, function (result) {
     if (result.affectedRows == 0) {
@@ -63,3 +63,17 @@ router.delete("/movies/:id", function (req, res) {
     }
   });
 });
+
+router.get("/movies/:column/:colVal", function (req, res) {
+  const cols = req.params.column;
+  const colVal = req.params.colVal;
+
+  console.log(cols);
+  console.log(colVal);
+  movies.findAllWhere(cols, colVal, function (data) {
+    console.log(data);
+    res.json({ movies: data });
+  });
+});
+
+module.exports = router;
