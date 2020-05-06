@@ -14,6 +14,12 @@ router.get("/movies", function (req, res) {
   });
 });
 
+router.get("/moviesRandom", function (req, res) {
+  movies.selectAllRandom(function (data) {
+    res.json({ movies: data });
+  });
+});
+
 router.post("/movies", function (req, res) {
   movies.insertOne(
     ["title", "synoppsis", "rating", "would_watch_again"],

@@ -27,9 +27,19 @@ function objToSql(ob) {
   return arr.toString();
 }
 
-var orm = {
+const orm = {
   selectAll: function (tableInput, cb) {
     const queryString = "SELECT * FROM " + tableInput + ";";
+    connection.query(queryString, function (err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
+  selectAllRandom: function (tableInput, cb) {
+    const queryString =
+      "SELECT * FROM " + tableInput + "ORDER BY random_value;";
     connection.query(queryString, function (err, result) {
       if (err) {
         throw err;

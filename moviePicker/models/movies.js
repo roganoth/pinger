@@ -7,6 +7,10 @@ const movies = {
       cb(res);
     });
   },
+  selectAllRandom: function (cb) {
+    orm.selectAll("movies", cols, vals, function (res) {
+      cb(res);
+  },
   insertOne: function (cols, vals, cb) {
     orm.insertOne("movies", cols, vals, function (res) {
       cb(res);
