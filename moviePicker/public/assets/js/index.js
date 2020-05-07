@@ -76,8 +76,8 @@ $(document).ready(function () {
   //delete action
   $(document).on("click", "#delete", function (event) {
     event.preventDefault();
-    var id = $(this).attr("data-id");
-    var title = $(this).attr("data-title");
+    let id = $(this).attr("data-id");
+    let title = $(this).attr("data-title");
     $("#delWarning").modal("toggle");
     $("#warningBody").empty();
     $("#warningBody").append(
@@ -89,6 +89,30 @@ $(document).ready(function () {
       }).then(function (data) {
         location.reload();
       });
+    });
+  });
+
+  //upvote action
+  $(document).on("click", "#upvote", function (event) {
+    event.preventDefault();
+    let id = $(this).attr("data-id");
+    $.ajax("/movies/" + id, {
+      type: "PUT",
+      data: { would_watch_again: true },
+    }).then(function (data) {
+      location.reload();
+    });
+  });
+
+  //downvote action
+  $(document).on("click", "#downvote", function (event) {
+    event.preventDefault();
+    let id = $(this).attr("data-id");
+    $.ajax("/movies/" + id, {
+      type: "PUT",
+      data: { would_watch_again: false },
+    }).then(function (data) {
+      location.reload();
     });
   });
 });
