@@ -8,17 +8,20 @@ $(document).ready(function () {
       const upvote = $("<button>");
       upvote.addClass("btn btn-sm");
       upvote.addClass("glyphicon glyphicon-triangle-top");
+      upvote.attr("data-id", movies[i].id);
       upvote.attr("id", "upvote");
 
       const downvote = $("<button>");
       downvote.addClass("btn btn-sm");
       downvote.addClass("glyphicon glyphicon-triangle-bottom");
+      downvote.attr("data-id", movies[i].id);
       downvote.attr("id", "downvote");
 
       const del = $("<button>");
       del.addClass("btn btn-sm");
       del.addClass("glyphicon glyphicon-trash");
       del.attr("data-id", movies[i].id);
+      del.attr("data-title", movies[i].title);
       del.attr("id", "delete");
 
       const nameString = $(`<li> ${movies[i].title} </li>`);
@@ -74,11 +77,12 @@ $(document).ready(function () {
   $(document).on("click", "#delete", function (event) {
     event.preventDefault();
     var id = $(this).attr("data-id");
-    var name =
-      $(this).attr("data-first_name") + " " + $(this).attr("data-last_name");
+    var title = $(this).attr("data-title");
     $("#delWarning").modal("toggle");
     $("#warningBody").empty();
-    $("#warningBody").append("You will be permanently deleting user: " + name);
+    $("#warningBody").append(
+      "You will be permanently deleting the movie: " + title
+    );
     $("#delConfirm").click(function () {
       $.ajax("/movies/" + id, {
         type: "DELETE",

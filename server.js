@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const routes = require("./controller/picker-controller.js");
+const routes = require("./moviePicker/controller/picker-controller.js");
 
 app.use(routes);
 
