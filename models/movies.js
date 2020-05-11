@@ -8,7 +8,7 @@ const movies = {
     });
   },
   selectAllRandom: function (cb) {
-    orm.selectAll("movies", cols, vals, function (res) {
+    orm.selectAll("movies", function (res) {
       cb(res);
     });
   },
