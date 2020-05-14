@@ -1,8 +1,8 @@
 require("dotenv").config();
-const express = require("express");
-const movies = require("../models/movies.js");
-const router = express.Router();
-const path = require("path");
+let express = require("express");
+let movies = require("../models/movies.js");
+let router = express.Router();
+let path = require("path");
 
 router.get("/", function (req, res) {
   res.sendFile("./public/index.html");
@@ -37,13 +37,11 @@ router.post("/movies", function (req, res) {
 });
 
 router.put("/movies/:id", function (req, res) {
-  const condition = "id = " + req.params.id;
+  let condition = "id = " + req.params.id;
 
   movies.updateOne(
     {
       title: req.body.title,
-      synoppsis: req.body.synoppsis,
-      rating: req.body.rating,
       would_watch_again: req.body.wouldWatchAgain,
     },
     condition,
@@ -58,7 +56,7 @@ router.put("/movies/:id", function (req, res) {
 });
 
 router.delete("/movies/:id", function (req, res) {
-  const condition = "id = " + req.params.id;
+  let condition = "id = " + req.params.id;
 
   movies.delete(condition, function (result) {
     if (result.affectedRows == 0) {
@@ -71,8 +69,8 @@ router.delete("/movies/:id", function (req, res) {
 });
 
 router.get("/movies/:column/:colVal", function (req, res) {
-  const cols = req.params.column;
-  const colVal = req.params.colVal;
+  let cols = req.params.column;
+  let colVal = req.params.colVal;
 
   console.log(cols);
   console.log(colVal);

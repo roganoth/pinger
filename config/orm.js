@@ -1,8 +1,8 @@
-const connection = require("./connection.js");
+let connection = require("./connection.js");
 const path = require("path");
 
 function printQuestionMarks(num) {
-  const arr = [];
+  let arr = [];
 
   for (var i = 0; i < num; i++) {
     arr.push("?");
@@ -12,7 +12,7 @@ function printQuestionMarks(num) {
 }
 
 function objToSql(ob) {
-  const arr = [];
+  let arr = [];
 
   for (var key in ob) {
     var value = ob[key];
