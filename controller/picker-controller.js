@@ -22,7 +22,7 @@ router.get("/moviesRandom", function (req, res) {
 
 router.post("/movies", function (req, res) {
   movies.insertOne(
-    ["title", "synoppsis", "rating", "would_watch_again"],
+    ["title", "synopsis", "rating", "would_watch_again"],
     [
       req.body.title,
       req.body.synoppsis,
@@ -42,7 +42,7 @@ router.put("/movies/:id", function (req, res) {
   movies.updateOne(
     {
       title: req.body.title,
-      would_watch_again: req.body.wouldWatchAgain,
+      would_watch_again: req.body.would_watch_again,
     },
     condition,
     function (result) {

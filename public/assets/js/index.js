@@ -4,6 +4,7 @@ $(document).ready(function () {
   function populateResults(data) {
     let movies = data.movies;
     let len = data.movies.length;
+    console.log(movies);
 
     let movies_elem = $("#list");
     for (i = 0; i < len; i++) {
@@ -13,13 +14,16 @@ $(document).ready(function () {
       upvote.attr("data-id", movies[i].id);
       upvote.attr("data-title", movies[i].title);
       upvote.attr("id", "upvote");
+      upvote.html("Upvote");
 
       let downvote = $("<button>");
       downvote.addClass("btn btn-info btn-sm");
       downvote.addClass("glyphicon glyphicon-triangle-bottom");
       downvote.attr("data-id", movies[i].id);
       downvote.attr("data-title", movies[i].title);
+      downvote.attr("watch-again", movies[i].would_watch_again);
       downvote.attr("id", "downvote");
+      downvote.html("Downvote");
 
       let del = $("<button>");
       del.addClass("btn btn-info btn-sm");
@@ -27,6 +31,7 @@ $(document).ready(function () {
       del.attr("data-id", movies[i].id);
       del.attr("data-title", movies[i].title);
       del.attr("id", "delete");
+      del.html("Delete");
 
       let nameString = $(`<li> ${movies[i].title} </li>`);
 
@@ -118,9 +123,16 @@ $(document).ready(function () {
   $(document).on("click", "#downvote", function (event) {
     event.preventDefault();
     let id = $(this).attr("data-id");
+    let would_watch_again = $(this).attr("watch-again");
+    let updateMovie = {
+      title: $(this).attr("data-title"),
+      would_watch_again: false,
+    };
     $.ajax("/movies/" + id, {
       type: "PUT",
-      data: { would_watch_again: false },
+      data: JSON.stringify(updateMovie),
+      dataType: "json",
+      contentType: "application/json",
     }).then(function (data) {
       location.reload();
     });
