@@ -3,7 +3,7 @@ const path = require("path");
 
 const movies = {
   selectAll: function (cb) {
-    orm.selectAll("movies", cols, vals, function (res) {
+    orm.selectAll("movies", function (res) {
       cb(res);
     });
   },

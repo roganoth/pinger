@@ -5,3 +5,7 @@
 .site-display {
   display: inline-block;
 }
+
+#viewedList {
+  color: red;
+}

@@ -25,9 +25,9 @@ router.post("/movies", function (req, res) {
     ["title", "synopsis", "rating", "would_watch_again"],
     [
       req.body.title,
-      req.body.synoppsis,
+      req.body.synopsis,
       req.body.rating,
-      req.body.wouldWatchAgain,
+      req.body.would_watch_again,
     ],
     function (result) {
       console.log(result);

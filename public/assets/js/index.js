@@ -1,12 +1,14 @@
 // import { json } from "express";
 
 $(document).ready(function () {
+  // const TBR = [];
   function populateResults(data) {
     let movies = data.movies;
     let len = data.movies.length;
     console.log(movies);
 
     let movies_elem = $("#list");
+    let movies_elem2 = $("#viewedList");
     for (i = 0; i < len; i++) {
       let upvote = $("<button>");
       upvote.addClass("btn btn-info btn-sm");
@@ -21,7 +23,6 @@ $(document).ready(function () {
       downvote.addClass("glyphicon glyphicon-triangle-bottom");
       downvote.attr("data-id", movies[i].id);
       downvote.attr("data-title", movies[i].title);
-      downvote.attr("watch-again", movies[i].would_watch_again);
       downvote.attr("id", "downvote");
       downvote.html("Downvote");
 
@@ -38,30 +39,50 @@ $(document).ready(function () {
       nameString.append(upvote);
       nameString.append(downvote);
       nameString.append(del);
-      movies_elem.append(nameString);
+      if (
+        movies[i].would_watch_again == 0 ||
+        movies[i].would_watch_again == 1
+      ) {
+        movies_elem2.append(nameString);
+      } else {
+        // TBR.push(movies[i].title);
+        movies_elem.append(nameString);
+      }
     }
   }
 
-  //loads list random by default
-  $.ajax("/moviesRandom", {
+  //loads movie list
+  $.ajax("/movies", {
     type: "GET",
   }).then(function (data) {
     populateResults(data);
   });
 
-  //   //randomizing the list
-  //   $("#random").click(function (event) {
-  //     event.preventDefault();
-  //     const list = $("#list");
-  //     const tracker = [];
-  //     for (i = 0; i < list.length; i++) {
-  //       let randomNumber = Math.random(Math.floor() * 100) + 1;
-  //       if (!tracker.includes(randomNumber){
-  //           tracker.push(randomNumber);
-  //           $.ajax("/")
-  //       })
-  //     }
-  //   });
+  //loads list random by default
+  // $.ajax("/moviesRandom", {
+  //   type: "GET",
+  // }).then(function (data) {
+  //   populateResults(data);
+  // });
+
+  $.fn.shufflelistitems = function () {
+    $.each(this.get(), function (index, el) {
+      var $el = $(el);
+      var $find = $el.children();
+
+      $find.sort(function () {
+        return 0.5 - Math.random();
+      });
+
+      $el.empty();
+      $find.appendTo($el);
+    });
+  };
+  //randomizing the list
+  $("#random").click(function (event) {
+    event.preventDefault();
+    $("#list").shufflelistitems();
+  });
 
   //adding to the list
   $("#insert").click(function (event) {
