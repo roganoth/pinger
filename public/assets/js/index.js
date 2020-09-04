@@ -1,10 +1,19 @@
 // import { json } from "express";
 
 $(document).ready(function () {
+  camelize = function camelize(str) {
+    return str.replace(/(\w+)|(\s)/g, function (match, p1, p2) {
+      if (p1) {
+        return p1.charAt(0).toUpperCase() + p1.substring(1);
+      }
+      if (p2) {
+        return (p2 = " ");
+      }
+    });
+  };
   function populateResults(data) {
     let movies = data.movies;
     let len = data.movies.length;
-    console.log(movies);
 
     let movies_elem = $("#list");
     let movies_elem2 = $("#viewedList");
@@ -36,21 +45,39 @@ $(document).ready(function () {
       del.attr("id", "delete");
       del.html("Delete");
 
-      let nameString = $(`<li> ${movies[i].title} </li>`);
+      let nameString = $(`<li> ${camelize(movies[i].title)} </li>`);
 
       nameString.append(del);
-      // nameString.append(" ");
       nameString.append(downvote);
-      // nameString.append(" ");
       nameString.append(upvote);
       nameString.append("<hr>");
+
       if (movies[i].would_watch_again == 0) {
-        nameString.css("background-color: red");
-        movies_elem.append(nameString);
+        nameString.css({
+          "background-color": "red",
+          "font-weight": "bold",
+          "padding-top": "10px",
+          "padding-left": "5px",
+          "padding-right": "5px",
+        });
+        movies_elem2.append(nameString);
       } else if (movies[i].would_watch_again == 1) {
-        nameString.css("background-color: green");
+        nameString.css({
+          "background-color": "limegreen",
+          "font-weight": "bold",
+          "padding-top": "10px",
+          "padding-left": "5px",
+          "padding-right": "5px",
+        });
         movies_elem2.append(nameString);
       } else {
+        nameString.css({
+          "background-color": "cyan",
+          "font-weight": "bold",
+          "padding-top": "10px",
+          "padding-left": "5px",
+          "padding-right": "5px",
+        });
         movies_elem.append(nameString);
       }
     }
