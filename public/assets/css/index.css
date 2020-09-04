@@ -2,10 +2,35 @@
   text-align: left;
 }
 
-.site-display {
+/* .site-display {
   display: inline-block;
-}
+} */
 
 #viewedList {
-  color: red;
+  float: left;
+  width: 45%;
+}
+#list {
+  float: left;
+  width: 50%;
+}
+
+#random {
+  float: left;
+}
+
+#input {
+  margin-left: 20px;
+  width: 100%;
+}
+
+#title {
+  width: 80%;
+}
+
+.like,
+.dislike,
+.del {
+  float: right;
+  margin-right: 2px;
 }

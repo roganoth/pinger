@@ -34,15 +34,17 @@
         </p>
       </div>
     </div>
-    <form class="site-display">
+    <form class="site-display" id="input">
       <label for="title">Title</label>
       <input type="text" id="title"></textinput>
       <button id="insert">Add</button>
     </form>
     <div class="site-display" id="listBox">
+      <h4>What to Watch</h4>
       <ul id="list"></ul>
-      <button id="random" class="btn btn-primary">Randomize!</button>
+      <h4>Already Watched</h4>
       <ul id="viewedList"></ul>
+      <button id="random" class="btn btn-primary">Randomize!</button>
     </div>
     <div class="modal" tabindex="-1" role="dialog" id="infoModal">
       <div class="modal-dialog" role="document">

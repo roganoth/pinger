@@ -1,7 +1,6 @@
 // import { json } from "express";
 
 $(document).ready(function () {
-  // const TBR = [];
   function populateResults(data) {
     let movies = data.movies;
     let len = data.movies.length;
@@ -13,6 +12,7 @@ $(document).ready(function () {
       let upvote = $("<button>");
       upvote.addClass("btn btn-info btn-sm");
       upvote.addClass("glyphicon glyphicon-triangle-top");
+      upvote.addClass("like");
       upvote.attr("data-id", movies[i].id);
       upvote.attr("data-title", movies[i].title);
       upvote.attr("id", "upvote");
@@ -21,6 +21,7 @@ $(document).ready(function () {
       let downvote = $("<button>");
       downvote.addClass("btn btn-info btn-sm");
       downvote.addClass("glyphicon glyphicon-triangle-bottom");
+      downvote.addClass("dislike");
       downvote.attr("data-id", movies[i].id);
       downvote.attr("data-title", movies[i].title);
       downvote.attr("id", "downvote");
@@ -29,6 +30,7 @@ $(document).ready(function () {
       let del = $("<button>");
       del.addClass("btn btn-info btn-sm");
       del.addClass("glyphicon glyphicon-trash");
+      del.addClass("del");
       del.attr("data-id", movies[i].id);
       del.attr("data-title", movies[i].title);
       del.attr("id", "delete");
@@ -36,16 +38,19 @@ $(document).ready(function () {
 
       let nameString = $(`<li> ${movies[i].title} </li>`);
 
-      nameString.append(upvote);
-      nameString.append(downvote);
       nameString.append(del);
-      if (
-        movies[i].would_watch_again == 0 ||
-        movies[i].would_watch_again == 1
-      ) {
+      // nameString.append(" ");
+      nameString.append(downvote);
+      // nameString.append(" ");
+      nameString.append(upvote);
+      nameString.append("<hr>");
+      if (movies[i].would_watch_again == 0) {
+        nameString.css("background-color: red");
+        movies_elem.append(nameString);
+      } else if (movies[i].would_watch_again == 1) {
+        nameString.css("background-color: green");
         movies_elem2.append(nameString);
       } else {
-        // TBR.push(movies[i].title);
         movies_elem.append(nameString);
       }
     }
@@ -78,6 +83,7 @@ $(document).ready(function () {
       $find.appendTo($el);
     });
   };
+
   //randomizing the list
   $("#random").click(function (event) {
     event.preventDefault();
