@@ -2,10 +2,6 @@
   text-align: left;
 }
 
-/* .site-display {
-  display: inline-block;
-} */
-
 #viewedList {
   float: left;
   width: 45%;
@@ -33,4 +29,30 @@
 .del {
   float: right;
   margin-right: 2px;
+}
+
+#notViewedHead,
+#viewedHead {
+  float: left;
+  margin-left: 20px;
+  width: 45%;
+}
+
+#viewedHead {
+  margin-left: 70px;
+}
+
+#random {
+  clear: left;
+  margin: 10px;
+}
+
+/* body {
+  background-color: black;
+  color: white;
+} */
+
+.jumbotron {
+  background-color: orangered;
+  /* color: black; */
 }
