@@ -25,7 +25,7 @@ $(document).ready(function () {
       upvote.attr("data-id", movies[i].id);
       upvote.attr("data-title", movies[i].title);
       upvote.attr("id", "upvote");
-      upvote.html("Upvote");
+      upvote.html("Liked It");
 
       let downvote = $("<button>");
       downvote.addClass("btn btn-info btn-sm");
@@ -34,7 +34,7 @@ $(document).ready(function () {
       downvote.attr("data-id", movies[i].id);
       downvote.attr("data-title", movies[i].title);
       downvote.attr("id", "downvote");
-      downvote.html("Downvote");
+      downvote.html("Didn't Like It");
 
       let del = $("<button>");
       del.addClass("btn btn-info btn-sm");
@@ -60,6 +60,7 @@ $(document).ready(function () {
           "padding-left": "5px",
           "padding-right": "5px",
         });
+        nameString.addClass("viewed");
         movies_elem2.append(nameString);
       } else if (movies[i].would_watch_again == 1) {
         nameString.css({
@@ -69,6 +70,7 @@ $(document).ready(function () {
           "padding-left": "5px",
           "padding-right": "5px",
         });
+        nameString.addClass("viewed");
         movies_elem2.append(nameString);
       } else {
         nameString.css({
@@ -78,6 +80,7 @@ $(document).ready(function () {
           "padding-left": "5px",
           "padding-right": "5px",
         });
+        nameString.addClass("notViewed");
         movies_elem.append(nameString);
       }
     }
@@ -88,14 +91,22 @@ $(document).ready(function () {
     type: "GET",
   }).then(function (data) {
     populateResults(data);
+    gsap.from("#random", { duration: 1, y: 150, ease: "bounce", opacity: 0 });
+    gsap.from(".viewed", {
+      duration: 1,
+      y: 150,
+      ease: "bounce",
+      opacity: 0,
+      stagger: 0.25,
+    });
+    gsap.from(".notViewed", {
+      duration: 1,
+      y: 150,
+      ease: "bounce",
+      opacity: 0,
+      stagger: 0.25,
+    });
   });
-
-  //loads list random by default
-  // $.ajax("/moviesRandom", {
-  //   type: "GET",
-  // }).then(function (data) {
-  //   populateResults(data);
-  // });
 
   $.fn.shufflelistitems = function () {
     $.each(this.get(), function (index, el) {
@@ -115,6 +126,13 @@ $(document).ready(function () {
   $("#random").click(function (event) {
     event.preventDefault();
     $("#list").shufflelistitems();
+    gsap.from(".notViewed", {
+      duration: 1,
+      y: 150,
+      ease: "bounce",
+      opacity: 0,
+      stagger: 0.25,
+    });
   });
 
   //adding to the list
